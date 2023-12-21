@@ -1,6 +1,9 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom/client";
 import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
@@ -9,25 +12,36 @@ import {
   Dashboard,
   Detail,
   About
-} from './pages'
+} from './pages';
+import ScrollToTop from "./helpers/ScrollToTop";
 
-const router = createBrowserRouter([
+const routeList = [
   {
     path: "/",
     element: <Dashboard/>,
   },
   {
-    path: "/coordinate",
+    path: "/detail",
     element: <Detail/>,
   },
   {
     path: "/about",
     element: <About/>,
   },
-]);
+];
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    {/* <RouterProvider router={router} /> */}
+    <Router>
+      <ScrollToTop/>
+      <Routes>
+        {
+          routeList.map(el => (
+            <Route path={el.path} element={el.element} />
+          ))
+        }
+      </Routes>
+    </Router>
   </React.StrictMode>
 );
